@@ -8,7 +8,7 @@ This repository implements a compact **2D robotic navigation simulation** integr
 - Path smoothing via line-of-sight checks
 - Unicycle kinematic robot model
 
-The project is designed for **academic use**, algorithm validation, and robotics education.
+The project is designed for robotics education.
 
 ---
 
