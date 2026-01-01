@@ -21,6 +21,7 @@ The user-provided floor map (Floormap.png) is treated by **mapper.py** as the gr
 The video presents a real-time demonstration of a 2D robotic SLAM (Simultaneous Localization and Mapping) simulation. A green robot acts as the central agent, navigating through an initially dark, unexplored environment while emitting a fan of gray Lidar rays to scan its surroundings. As these rays contact invisible obstacles, the system dynamically constructs an occupancy grid map, revealing the floorplan by marking free space in white and detected walls in blue. The simulation cease in an autonomous navigation sequence where a cyan line appears, visualizing the optimal path calculated by the **A*** algorithm, which the robot smoothly follows using Unicycle kinematic robot model to reach its destination while avoiding collisions.
 
 
+
 ---
 
 ## System Pipeline
