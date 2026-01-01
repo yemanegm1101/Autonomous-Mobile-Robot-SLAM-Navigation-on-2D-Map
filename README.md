@@ -68,10 +68,11 @@ Recursive update:
 Inverse sensor model:
 - Cells along a beam before obstacle:
   
-   <img width="185" height="38" alt="image" src="https://github.com/user-attachments/assets/03fe1ac0-27c4-4648-b58b-e7970b0bd044" />
+<img width="185" height="38" alt="image" src="https://github.com/user-attachments/assets/03fe1ac0-27c4-4648-b58b-e7970b0bd044" />
 
 - Cell where obstacle is detected:
-   <img width="152" height="36" alt="image" src="https://github.com/user-attachments/assets/42675f90-7482-4a8d-848f-ad449b8faba3" />
+  
+<img width="152" height="36" alt="image" src="https://github.com/user-attachments/assets/42675f90-7482-4a8d-848f-ad449b8faba3" />
 
 
 Log-odds values are clamped:
