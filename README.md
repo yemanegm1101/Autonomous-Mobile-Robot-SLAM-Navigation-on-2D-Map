@@ -1,4 +1,4 @@
-## 2D SLAM and Path Planning Simulation
+### 2D SLAM and Path Planning Simulation
 
 This repository implements a compact **2D robotic navigation simulation** that combines:
               - Simulated LIDAR sensing
@@ -20,31 +20,35 @@ The project is intended for **educational use, research simulation, and robotics
 6. Visualization and telemetry  
 
 ---
+## Coordinate Frames and Notation
 
-## Mathematical Models (Plain-Text Form)
+<img width="778" height="254" alt="image" src="https://github.com/user-attachments/assets/bd08ff3f-672c-4c08-a411-69331e26fd95" />
 
-### Robot Motion Model (Unicycle)
+---
+
+## Mathematical Models 
+
+### Robot Motion Model
 State: (x, y, theta)
 
 Motion equations:
-- x_dot = v * cos(theta)
-- y_dot = v * sin(theta)
-- theta_dot = omega
+
+<img width="324" height="38" alt="image" src="https://github.com/user-attachments/assets/3e71b557-216f-485a-ac4e-1fd5b3a7be5c" />
 
 Discrete-time update:
-- x_next = x + v * cos(theta) * dt
-- y_next = y + v * sin(theta) * dt
-- theta_next = theta + omega * dt
+
+<img width="266" height="114" alt="image" src="https://github.com/user-attachments/assets/04433e88-98f4-449e-8903-f210be5d0db1" />
+
 
 Optional Gaussian noise may be added to simulate odometry uncertainty.
 
 ---
 
 ### LIDAR Measurement Model
-Each LIDAR beam measures a range value:
+The LIDAR sensor emits 𝐵 beams over a fixed angular range.
 
-- z = min(z_true + noise, z_max)
-- noise ~ Normal(0, sigma^2)
+<img width="454" height="44" alt="image" src="https://github.com/user-attachments/assets/6ec94355-ed6f-4914-bd55-3a81c4a12865" />
+
 
 Raycasting is used to detect the first obstacle along each beam.
 
@@ -53,23 +57,32 @@ Raycasting is used to detect the first obstacle along each beam.
 ### Occupancy Grid Mapping (Log-Odds)
 Each grid cell stores a log-odds value:
 
-- L = log( P(occupied) / (1 - P(occupied)) )
+<img width="315" height="75" alt="image" src="https://github.com/user-attachments/assets/6a097dd6-2267-4db4-bf6d-766e58120deb" />
+
 
 Recursive update:
-- L_new = L_old + inverse_sensor_model
+
+<img width="313" height="56" alt="image" src="https://github.com/user-attachments/assets/6ba4f0ab-9fc1-4bfe-8d31-26a07d0d9280" />
+
 
 Inverse sensor model:
 - Cells along a beam before obstacle:
-  - L += L_free
+  
+<img width="185" height="38" alt="image" src="https://github.com/user-attachments/assets/03fe1ac0-27c4-4648-b58b-e7970b0bd044" />
+
 - Cell where obstacle is detected:
-  - L += L_occ
+<img width="152" height="36" alt="image" src="https://github.com/user-attachments/assets/42675f90-7482-4a8d-848f-ad449b8faba3" />
+
 
 Log-odds values are clamped:
-- L_min <= L <= L_max
+
+  <img width="171" height="35" alt="image" src="https://github.com/user-attachments/assets/e2e3a2d4-5260-4214-a16e-1068beecf590" />
 
 Occupancy probability (for visualization):
-- P = 1 / (1 + exp(-L))
 
+<img width="193" height="61" alt="image" src="https://github.com/user-attachments/assets/57a2e4d1-400c-42ba-91f4-63cda8f3d717" />
+
+Ray traversal uses Bresenham’s algorithm for accurate grid cell updates.
 ---
 
 ## Core Algorithms
@@ -105,7 +118,8 @@ while open_set not empty:
 ```
 
 Heuristic:
-- h = Euclidean distance to goal
+
+<img width="650" height="156" alt="image" src="https://github.com/user-attachments/assets/f7221017-d10a-427d-b524-80b44158a4b4" />
 
 ---
 
@@ -145,9 +159,11 @@ All simulation parameters are defined in `config.py`, including:
 ---
 
 ## References
+- Elfes, A., Occupancy Grids: A Probabilistic Framework for Robot Perception and Navigation
+
+- Hart et al., A Formal Basis for the Heuristic Determination of Minimum Cost Paths
+
 - Thrun et al., Probabilistic Robotics
-- Elfes, Occupancy Grid Mapping
-- Hart et al., A* Search Algorithm
 
 ---
 
