@@ -129,9 +129,9 @@ All parameters are defined in `config.py`:
 ---
 
 ## References
-- Thrun et al., *Probabilistic Robotics*
-- Elfes, *Occupancy Grid Mapping*
-- Hart et al., *A* Search Algorithm*
+- Elfes, A., Occupancy Grids: A Probabilistic Framework for Robot Perception and Navigation
+- Hart et al., A Formal Basis for the Heuristic Determination of Minimum Cost Paths
+- Thrun et al., Probabilistic Robotics
 
 ---
 
