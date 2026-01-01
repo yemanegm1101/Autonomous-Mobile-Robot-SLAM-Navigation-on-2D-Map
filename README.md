@@ -46,7 +46,7 @@ https://github.com/user-attachments/assets/4258d3df-d660-4cb5-9524-5cca4294cca4
 ## Mathematical Models 
 
 ### Robot Motion Model
-State: (x, y, theta)
+The simulation uses the unicycle (nonholonomic) kinematic model. Control inputs are linear velocity 𝑣𝑡 and angular velocity 𝜔𝑡.
 
 Motion equations:
 
