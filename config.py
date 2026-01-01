@@ -7,7 +7,7 @@ SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 700
 SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT) # For backwards compatibility if needed, though tuple is better
 
-ROBOT_Radius = 0.3
+ROBOT_RADIUS = 0.3
 LIDAR_RANGE = 8.0
 LIDAR_BEAMS = 180
 

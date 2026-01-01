@@ -21,6 +21,9 @@ class Lidar:
         # Assuming truth_map covers MAP_SIZE_METERS x MAP_SIZE_METERS
         pixels_per_meter_x = w / MAP_SIZE_METERS
         pixels_per_meter_y = h / MAP_SIZE_METERS
+
+        # Use the smaller pixels-per-meter to keep scaling consistent for non-square maps
+        pixels_per_meter = min(pixels_per_meter_x, pixels_per_meter_y)
         
         # Robot position in map grid coordinates
         rx_grid = rx * pixels_per_meter_x
@@ -32,14 +35,9 @@ class Lidar:
             sin_a = math.sin(global_angle)
             cos_a = math.cos(global_angle)
             
-            # fast voxel traversal (similar to DDA) could be used, 
-            # or simple stepping for simplicity. 
-            # Let's use simple stepping for readability and generic support,
-            # though less efficient than DDA. 
-            # Step size = 1 pixel roughly?
-            
+            # simple stepping for readability
             step_size = 0.5 # Half a cell/pixel size for precision
-            max_steps = int((LIDAR_RANGE * pixels_per_meter_x) / step_size)
+            max_steps = int((LIDAR_RANGE * pixels_per_meter) / step_size)
             
             hit_found = False
             for i in range(max_steps):
@@ -51,8 +49,7 @@ class Lidar:
                 if check_x < 0 or check_x >= w or check_y < 0 or check_y >= h:
                     break # Out of map bounds
                 
-                # Check collision (threshold could be 0.5 or 127 depending on map loading)
-                # Assuming truth_map is 0-255 or 0-1. Let's say > 0 is obstacle.
+                # Check collision (assuming truth_map > 0 is obstacle)
                 if truth_map[check_y, check_x] > 0:
                     # Hit!
                     # Convert back to meters
@@ -62,6 +59,7 @@ class Lidar:
                     hit_found = True
                     break
             
-            # If no hit within max range, we don't return a point (as per previous logic)
+            # If no hit within max range, current behavior is to omit a point.
+            # We keep that behavior for now to avoid changing downstream assumptions.
                 
         return hits

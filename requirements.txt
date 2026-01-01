@@ -1,3 +1,4 @@
 pygame
 numpy
-scikit-image
+matplotlib
+# scikit-image removed (not used in current code)

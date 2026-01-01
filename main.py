@@ -25,15 +25,6 @@ class Camera:
         # Convert meters to pixels first (base scale)
         # Then apply camera zoom and offset
         
-        # Base scale: fitting MAP_SIZE_METERS into the window initially? 
-        # Or just use arbitrary pixels_per_meter?
-        # Let's say we fit map height to screen height initially if zoom is 1.
-        
-        # To make it easier, let's keep base pixels-per-meter constant relative to zoom.
-        # Let's define base_ppm based on CURRENT window size? 
-        # But window size changes. 
-        # Let's assume (0,0) world is at (0,0) screen initially if no offset.
-        
         # Scale to fit 85% of the screen height
         base_scale = (self.height * 0.85) / MAP_SIZE_METERS
         
@@ -96,43 +87,17 @@ def load_map_image(filename):
         # This will be used as Truth Map
         # 0 = Free, 1 = Occ
         
-        # Scale image to desired grid resolution? 
-        # Or keep partial resolution? 
-        # Lidar uses this directly. Let's keep it as surface or array.
-        # Array is better for lidar.
-        
-        # Convert surface to array
-        # We need a 2D array representation.
-        # Let's assume image dimensions match the aspect ratio of MAP_SIZE_METERS?
-        # Or we just stretch it.
-        
-        # Access pixel data
         width, height = img.get_size()
         
-        # Create numpy array
-        # Pygame surfarray is (width, height), we want (height, width) for row/col access usually, or just stick to x,y
-        # surfarray reference: array[x, y]
         arr = pygame.surfarray.array3d(img)
-        # Convert to simple occ grid (if not white/lighter -> occupied?)
-        # Let's say dark is occupied? User didn't specify. Standard map images: black = occ, white = free.
-        # Average color
         gray = np.mean(arr, axis=2)
         
-        # If dark (< 128) -> Occupied (1). Else Free (0)
         truth_map = np.zeros((height, width), dtype=np.uint8)
-        
-        # Transpose because surfarray is [x, y], we often want [y, x] in numpy for image proc, 
-        # but my Lidar used truth_map[y, x] logic? 
-        # My lidar code: `truth_map[check_y, check_x]`. So index 0 is y, index 1 is x.
-        # surfarray `gray` is [x, y]. So we transpose.
         truth_map = (gray.T < 128).astype(np.uint8)
         
         return truth_map
     except Exception as e:
         print(f"Failed to load map: {e}")
-        # Return a fallback empty map (walls only)
-        # Wait, lidar expects dimensions.
-        # Let's create a 500x500 empty map with borders
         m = np.zeros((500, 500), dtype=np.uint8)
         m[0,:] = 1; m[-1,:] = 1; m[:,0] = 1; m[:,-1] = 1
         return m
@@ -291,8 +256,6 @@ def main():
         
         telemetry_queue.put((robot.velocity, robot.omega, h_err, planning_status))
 
-
-        
         # 3. Physics Step
         robot.update(dt)
         
@@ -324,9 +287,8 @@ def main():
                     
                     sx, sy = camera.world_to_screen(wx, wy)
                     # Width/Height of cell in screen px
-                    # Since camera scales uniformly, width = CELL_SIZE * base_scale * zoom
-                    # base_scale = height / MAP_SIZE
-                    base_scale = (camera.height / MAP_SIZE_METERS)
+                    # Use the same base_scale as Camera.world_to_screen (85% height fit)
+                    base_scale = (camera.height * 0.85) / MAP_SIZE_METERS
                     size = int(CELL_SIZE * base_scale * camera.zoom) + 1 # +1 to avoid gaps
                     
                     pygame.draw.rect(screen, color, (sx - size//2, sy - size//2, size, size))
