@@ -83,6 +83,7 @@ Occupancy probability (for visualization):
 <img width="193" height="61" alt="image" src="https://github.com/user-attachments/assets/57a2e4d1-400c-42ba-91f4-63cda8f3d717" />
 
 Ray traversal uses Bresenham’s algorithm for accurate grid cell updates.
+
 ---
 
 ## Core Algorithms
