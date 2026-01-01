@@ -1,14 +1,13 @@
-# 2D SLAM and Path Planning Simulation
+## 2D SLAM and Path Planning Simulation
 
-## Overview
 This repository implements a compact **2D robotic navigation simulation** that combines:
-- Simulated LIDAR sensing
-- Log-odds occupancy grid mapping
-- A* path planning with obstacle inflation
-- Path smoothing using line-of-sight checks
-- Unicycle kinematic robot model
+              - Simulated LIDAR sensing
+              - Log-odds occupancy grid mapping
+              - A* path planning with obstacle inflation
+              - Path smoothing using line-of-sight checks
+              - Unicycle kinematic robot model
 
-The project is intended for **academic use, research prototyping, and robotics education**.
+The project is intended for **educational use, research simulation, and robotics education**.
 
 ---
 
