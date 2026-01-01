@@ -11,6 +11,18 @@ The project is intended for **educational use, research simulation, and robotics
 
 ---
 
+## Semantic Features to Consider for SLAM & Planning
+
+The user-provided floor map (Floormap.png) is treated by **mapper.py** as the ground-truth occupancy image: dark strokes correspond to walls/obstacles and white areas to free space.**mapper.py** loads and binarizes the image (grayscale thresholding, optional morphological closing/thinning), converts pixels to grid cells using the pixel-to-meter scale defined in **config.py**, and produces a boolean occupancy grid used for LIDAR raycasting and metric evaluation. Note that wall thickness in the image becomes blocks of occupied cells (so either thin the walls or account for them with the planner’s inflation radius); the mapper saves a cleaned binary PNG and a occupancy array that the simulation and planner consume as the environment truth.
+
+<img width="1200" height="1166" alt="Floormap" src="https://github.com/user-attachments/assets/cdefc68c-ad29-44e0-91fd-6e0a68d13713" />
+
+
+The video presents a real-time demonstration of a 2D robotic SLAM (Simultaneous Localization and Mapping) simulation. A green robot acts as the central agent, navigating through an initially dark, unexplored environment while emitting a fan of gray Lidar rays to scan its surroundings. As these rays contact invisible obstacles, the system dynamically constructs an occupancy grid map, revealing the floorplan by marking free space in white and detected walls in blue. The simulation culminates in an autonomous navigation sequence where a cyan line appears, visualizing the optimal path calculated by the A* algorithm, which the robot smoothly follows using differential drive kinematics to reach its destination while avoiding collisions.
+
+
+---
+
 ## System Pipeline
 1. Robot motion update using kinematic equations  
 2. LIDAR raycasting against a ground-truth map  
