@@ -48,6 +48,8 @@ https://github.com/user-attachments/assets/4258d3df-d660-4cb5-9524-5cca4294cca4
 ### Robot Motion Model
 The simulation uses the unicycle (nonholonomic) kinematic model. Control inputs are linear velocity 𝑣𝑡 and angular velocity 𝜔𝑡.
 
+<img width="559" height="440" alt="Robot dimention" src="https://github.com/user-attachments/assets/b697a9b3-9ed0-476a-aabf-e4e1989aa253" />
+
 Motion equations:
 
 <img width="324" height="38" alt="image" src="https://github.com/user-attachments/assets/3e71b557-216f-485a-ac4e-1fd5b3a7be5c" />
